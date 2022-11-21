@@ -1,20 +1,15 @@
-import { Model, DataTypes } from "sequelize";
+import { Model, InferAttributes, DataTypes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import { db } from "../../config/databse";
-import { UserInput, UserAttributes } from "./interfaces/User";
 
-export class User extends Model<UserAttributes, UserInput> implements UserAttributes {
-  public id!: number;
-  public username!: string;
-  public email!: string;
-  public password!: string;
-  public verificationToken!: string;
-  public verificationTokenExpiry!: Date;
-  public verified!: boolean;
 
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
-  public readonly deletedAt!: Date;
-
+export class User extends Model<InferAttributes<User>, CreationOptional<User>> {
+  declare id: CreationOptional<number>;
+  declare username: string;
+  declare email: string;
+  declare password: string;
+  declare verified: CreationOptional<boolean>;
+  declare verificationToken: CreationOptional<string>;
+  declare verificationTokenExpiry: CreationOptional<Date>;
 }
 
 User.init(
